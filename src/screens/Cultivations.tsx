@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { colors } from '../consts';
 import { getCultivations } from '../services/getCultivations';
 import { Cultivation } from '../types';
 
@@ -52,6 +53,16 @@ export default function CultivationsScreen(){
         paddingHorizontal: 16,
         backgroundColor: '#1D1D28'
     }}>
+        <Text
+        style={{
+          alignSelf: "center",
+          color: colors.text,
+          fontSize: 18,
+          fontWeight: 'bold'
+        }}
+      >
+        Culturas
+      </Text>
         <FlatList 
             data={cultivations}
             renderItem={renderItem}
