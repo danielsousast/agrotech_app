@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import { getCultivations } from '../../services/getCultivations';
-import { Cultivation } from '../../types';
+import { getCultivations } from '../services/getCultivations';
+import { Cultivation } from '../types';
 
 // import { Container } from './styles';
 
@@ -24,8 +24,25 @@ export default function CultivationsScreen(){
     function handlePress(item: Cultivation) {
         //@ts-ignore
         navigation.navigate('PlantingDay', {
-            cultivationId: item.id
+            cultivationId: item.id,
+            cultivationName: item.cultura
         })
+    }
+
+    function renderItem({item}: any){
+        return (
+            <TouchableOpacity style={{
+                paddingVertical: 16,
+                paddingHorizontal: 12,
+                backgroundColor: '#2B2A38',
+                borderRadius: 12,
+                marginBottom: 8
+            }} onPress={() => handlePress(item)}>
+                <Text style={{
+                    color: '#fff'
+                }}>{item.cultura}</Text>
+            </TouchableOpacity>
+        )
     }
 
   return (
@@ -33,21 +50,14 @@ export default function CultivationsScreen(){
         flex: 1,
         paddingTop: 20,
         paddingHorizontal: 16,
-        backgroundColor: '#f4f4f4'
+        backgroundColor: '#1D1D28'
     }}>
         <FlatList 
             data={cultivations}
-            renderItem={({item}) => (
-                <TouchableOpacity style={{
-                    paddingVertical: 16,
-                    paddingHorizontal: 12,
-                    backgroundColor: '#fff',
-                    borderRadius: 12,
-                    marginBottom: 8
-                }} onPress={() => handlePress(item)}>
-                    <Text>{item.cultura}</Text>
-                </TouchableOpacity>
-            )}
+            renderItem={renderItem}
+            contentContainerStyle={{
+                padding: 16
+            }}
         />
     </SafeAreaView>
   );

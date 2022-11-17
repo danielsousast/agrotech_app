@@ -1,5 +1,15 @@
 import { access_token } from "../consts";
+import { PlantingDayResponseItem } from "../types";
 import api from "./api";
+
+export type PlantingDayItem = {
+    cultura: string;
+    ciclo: string;
+    risco: number;
+    solo: string;
+    dataInicio: string;
+    dataFim: string;
+}
 
 export async function getPlantingDays(cultivationId: number){
     try {
@@ -8,8 +18,19 @@ export async function getPlantingDays(cultivationId: number){
                 Authorization: `Bearer ${access_token}`
             }
         });
-        return response.data
+        return parseResponse(response.data)
     } catch (error) {
-        
+        console.log(error)
     }
+}
+
+function parseResponse({data}: {data: PlantingDayResponseItem[]}):PlantingDayItem[]{
+    return data?.map(item => ({
+        cultura: item.cultura,
+        ciclo: item.ciclo,
+        risco: item.risco,
+        solo: item.solo,
+        dataInicio: `${item.diaIni}/${item.mesIni}`,
+        dataFim: `${item.diaFim}/${item.mesFim}`
+    }))
 }

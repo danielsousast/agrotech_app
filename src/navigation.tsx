@@ -8,7 +8,9 @@ const Stack = createNativeStackNavigator();
 export function Navigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen name="Cultivations" component={Cultivations} />
         <Stack.Screen name="PlantingDay" component={PlantingDay} />
       </Stack.Navigator>

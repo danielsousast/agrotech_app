@@ -2,7 +2,11 @@ import { access_token } from "../consts";
 import { Cultivation } from "../types";
 import api from "./api";
 
-export async function getCultivations(): Promise<Cultivation[] | undefined> {
+type GetCultivationsResponse = {
+    data: Cultivation[]
+}
+
+export async function getCultivations(): Promise<GetCultivationsResponse[] | undefined> {
     try {
         const response = await api.get('/culturas', {
             headers: {
